@@ -7,8 +7,6 @@ class TestMath(unittest.TestCase):
 
 # Test GCD MODULE:
 
-
-
     # Test cơ bản
     def test_gcd_basic(self):
         self.assertEqual(Math.gcd(48, 18), 6)
