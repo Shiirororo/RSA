@@ -1,55 +1,50 @@
 import random
-
-# Import các hàm toán học từ nhóm Bắt buộc
-
 from Math.math import isPrime, gcd, extendedGCD, modExp
 
+
+def generate_prime(start=100, end=300):
+    while True:
+        x = random.randint(start, end)
+        if isPrime(x):
+            return x
+
+
+def mod_inverse(a, m):
+    g, x, _ = extendedGCD(a, m)
+    if g != 1:
+        raise Exception("Không tồn tại nghịch đảo")
+    return x % m
+
+
 class RSA:
-    def __init__(self, bit_length=1024):
-        """
-        Hàm khởi tạo: 
-        """
-        self.bit_length = bit_length
+    def __init__(self):
         self.public_key, self.private_key = self.generate_keys()
 
     def generate_keys(self):
-        """
-        Hàm nội bộ để tính toán p, q, n, e, d
-        """
-        # 1. Tìm p, q 
-        # (Tạm gán bằng 0)
-        p = 0 
-        q = 0 
-        
-        # 2. Tính n và phi
+        # 1. sinh p, q
+        p = generate_prime()
+        q = generate_prime()
+        while q == p:
+            q = generate_prime()
+
+        # 2. tính n, phi
         n = p * q
         phi = (p - 1) * (q - 1)
-        
-        # 3. Tìm e(Tạm gán =3)
-        e = 3 
-        
-        # 4. Tìm d
-        d = extendedGCD(e, phi) 
-        
-        # Trả về 2 Tuple: Public Key (e, n) và Private Key (d, n)
+
+        # 3. chọn e
+        e = 3
+        while gcd(e, phi) != 1:
+            e += 2
+
+        # 4. tính d
+        d = mod_inverse(e, phi)
+
         return (e, n), (d, n)
 
     def encrypt(self, message):
-        """
-        Hàm mã hóa: C = M^e mod n
-        """
-        # Lấy e và n từ public_key của chính đối tượng này
         e, n = self.public_key
-        
-        # Gọi hàm modExp 
         return modExp(message, e, n)
 
     def decrypt(self, ciphertext):
-        """
-        Hàm giải mã: M = C^d mod n
-        """
-        # Lấy d và n từ private_key của chính đối tượng này
         d, n = self.private_key
-        
-        # Gọi hàm modExp
         return modExp(ciphertext, d, n)

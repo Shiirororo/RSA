@@ -1,7 +1,7 @@
 import unittest
 from Math.math import Math   # sửa path theo project của bạn
 
-class TestMath(unittest.TestCase):
+class TestGCDMath(unittest.TestCase):
 
 
 
@@ -36,6 +36,33 @@ class TestMath(unittest.TestCase):
             a = random.randint(1, 1000)
             b = random.randint(1, 1000)
             self.assertEqual(Math.gcd(a, b), Math.gcd(b, a))
+
+class TestIsPrime(unittest.TestCase):
+
+    test_primes = [
+        2, 3, 5, 7, 11,
+        101, 103, 1009,
+        7919,
+        104729,
+    ]
+
+    test_composites = [
+        1, 4, 6, 8, 9, 10,
+        15, 21, 25, 27,
+        100, 1024,
+        9999,
+        104730,
+    ]
+
+    def test_primes_are_prime(self):
+        for n in self.test_primes:
+            with self.subTest(n=n):
+                self.assertTrue(Math.isPrime(n), f"{n} should be prime")
+
+    def test_composites_are_not_prime(self):
+        for n in self.test_composites:
+            with self.subTest(n=n):
+                self.assertFalse(Math.isPrime(n), f"{n} should not be prime")
 
 
 if __name__ == "__main__":
