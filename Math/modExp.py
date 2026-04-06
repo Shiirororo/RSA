@@ -7,6 +7,3 @@ def modExp(base, exp, mod):
         base = (base * base) % mod
         exp = exp //2
     return result
-
-print(modExp(2, 3, 5))
-print(modExp(3, 4, 7))
