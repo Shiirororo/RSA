@@ -1,16 +1,16 @@
 import random
-from Math.math import isPrime, gcd, extendedGCD, modExp
+from Math.math import Math
 
 
 def generate_prime(start=100, end=300):
     while True:
         x = random.randint(start, end)
-        if isPrime(x):
+        if Math.isPrime(x):
             return x
 
 
 def mod_inverse(a, m):
-    g, x, _ = extendedGCD(a, m)
+    g, x, _ = Math.extendedGCD(a, m)
     if g != 1:
         raise Exception("Không tồn tại nghịch đảo")
     return x % m
@@ -33,7 +33,7 @@ class RSA:
 
         # 3. chọn e
         e = 3
-        while gcd(e, phi) != 1:
+        while Math.gcd(e, phi) != 1:
             e += 2
 
         # 4. tính d
@@ -43,8 +43,8 @@ class RSA:
 
     def encrypt(self, message):
         e, n = self.public_key
-        return modExp(message, e, n)
+        return Math.modExp(message, e, n)
 
     def decrypt(self, ciphertext):
         d, n = self.private_key
-        return modExp(ciphertext, d, n)
+        return Math.modExp(ciphertext, d, n)
