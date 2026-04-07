@@ -79,13 +79,13 @@ class Math:
             # dùng secrets thay vì random
             a = secrets.randbelow(n - 3) + 2  # [2, n-2]
 
-            x = pow(a, d, n)
+            x = Math.modExp(a, d, n)
 
             if x == 1 or x == n - 1:
                 continue
 
             for _ in range(r - 1):
-                x = pow(x, 2, n)
+                x = Math.modExp(x, 2, n)
                 if x == n - 1:
                     break
             else:
