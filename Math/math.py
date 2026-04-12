@@ -74,6 +74,7 @@ class Math:
             d //= 2
             r += 1
 
+        
         # test k lần (Miller-Robin)
         for _ in range(k):
             # dùng secrets thay vì random
