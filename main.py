@@ -9,7 +9,16 @@ def main():
     print(f"Private Key (d, n): {rsa.private_key}")
     
     # 2. Thông điệp cần mã hóa
-    message = 12345
+    while True:
+        try:
+            message = int(input(f"Nhập thông điệp bằng số (là số nguyên nhỏ hơn {rsa.public_key[1]}): "))
+            if message < 0 or message >= rsa.public_key[1]:
+                print(f"Số nhập vào phải lớn hơn hoặc bằng 0 và nhỏ hơn {rsa.public_key[1]}. Vui lòng nhập lại.")
+                continue
+            break
+        except ValueError:
+            print("Vui lòng nhập một số nguyên hợp lệ!")
+
     print(f"\nOriginal Message: {message}")
     
     # 3. Mã hóa thông điệp
