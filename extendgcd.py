@@ -1,4 +1,8 @@
+
+#Merged, this file now unused
+
 def extended_gcd(a, b):
+
     """
     Thuật toán Euclid mở rộng.
     Tìm Ước chung lớn nhất (GCD) của a và b, cùng với hai hệ số x, y 

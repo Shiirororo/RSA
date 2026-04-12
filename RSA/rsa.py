@@ -2,12 +2,16 @@ import random
 from Math.math import Math
 
 
+
+
+"""
+Deprecated
+"""
 def generate_prime(start=100, end=300):
     while True:
         x = random.randint(start, end)
         if Math.isPrime(x):
             return x
-
 
 def mod_inverse(a, m):
     g, x, _ = Math.extendedGCD(a, m)
@@ -48,3 +52,10 @@ class RSA:
     def decrypt(self, ciphertext):
         d, n = self.private_key
         return Math.modExp(ciphertext, d, n)
+    
+
+
+
+# Sang nguyen to
+
+# Select 

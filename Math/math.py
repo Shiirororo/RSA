@@ -74,7 +74,7 @@ class Math:
             d //= 2
             r += 1
 
-        # test k lần (Miller-Rabin)
+        # test k lần (Miller-Robin)
         for _ in range(k):
             # dùng secrets thay vì random
             a = secrets.randbelow(n - 3) + 2  # [2, n-2]
