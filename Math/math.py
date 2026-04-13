@@ -74,7 +74,7 @@ class Math:
 
     @staticmethod
     def millerRabinIteration(n):
-        a = secrets.randbelow(n-1)  # Dung secret thay cho random, chon a trong khoang [2, n-2]
+        a = secrets.randbelow(n-3) + 2  # Dung secret thay cho random, chon a trong khoang [2, n-2]
 
         e = n - 1
 

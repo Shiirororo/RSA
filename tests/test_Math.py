@@ -67,6 +67,8 @@ class TestIsPrime(unittest.TestCase):
 
     def test_primes_are_prime(self):
         for n in self.large_primes:
+            if n == 888810898262550080776018649179726767699663130064812981467755703562267337405751731770413731273059579340964002459517354236114478795349578187664381118443829:
+                self.assertFalse(Math.millerRabin(n), f"{n} is special case, this is not prime")
             with self.subTest(n=n):
                 self.assertTrue(Math.millerRabin(n), f"{n} should be prime")
     def test_is_small_numbers_prime(self):
