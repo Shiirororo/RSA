@@ -74,8 +74,6 @@ class RSA:
                 if Math.gcd(e, phi) == 1:
                     break
 
-            while Math.gcd(e, phi) != 1:
-                e += 2
 
         d = mod_inverse(e, phi)
         return (e, n), (d, n)
