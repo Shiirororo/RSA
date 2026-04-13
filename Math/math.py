@@ -53,43 +53,50 @@ class Math:
         return result
 
 
+    #######DEPRECATED#######
 
-# Viec su dung isPrime cho cac so nho rat de. Tuy nhien de check cac so lon hon, ta su dung thuat toan Miller-Rabin
+
     @staticmethod
-    def isPrime(n, k=40):       # Set k = 40. XS P(sai) <= (1/4)^k
+    def isPrimeForSmallNumber(n):
         if n < 2:
             return False
-        
-        # các số nhỏ
-        small_primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
-        if n in small_primes:
+        if n < 4:
             return True
-        if any(n % p == 0 for p in small_primes):
+        if n % 2 == 0 or n % 3 == 0:
             return False
-
-        # viết n-1 = d * 2^r
-        d = n - 1
-        r = 0
-        while d % 2 == 0:
-            d //= 2
-            r += 1
-
-        
-        # test k lần (Miller-Robin)
-        for _ in range(k):
-            # dùng secrets thay vì random
-            a = secrets.randbelow(n - 3) + 2  # [2, n-2]
-
-            x = Math.modExp(a, d, n)
-
-            if x == 1 or x == n - 1:
-                continue
-
-            for _ in range(r - 1):
-                x = Math.modExp(x, 2, n)
-                if x == n - 1:
-                    break
-            else:
+        i = 5
+        while i * i <= n:
+            if n % i == 0 or n % (i + 2) == 0:
                 return False
-
+            i += 6
         return True
+
+
+    @staticmethod
+    def millerRabinIteration(n):
+        a = secrets.randbelow(n-1)  # Dung secret thay cho random, chon a trong khoang [2, n-2]
+
+        e = n - 1
+
+        if Math.modExp(a, e, n) != 1: 
+            return False
+        prevIs1 = True
+        while e%2 == 0:
+            e //= 2
+            x = Math.modExp(a, e, n)
+            if prevIs1:
+                if x == n-1: 
+                    prevIs1 = False
+                elif x!= 1: 
+                    return False
+        return True
+    
+
+    @staticmethod
+    def millerRabin(n, k = 40):      # Set k = 40. XS P(sai) <= (1/4)^k
+        for _ in range (k):
+            if not Math.millerRabinIteration(n):
+                return False
+        return True
+
+        #o(K LOG^3 R)

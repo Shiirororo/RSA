@@ -1,4 +1,4 @@
-import random
+import secrets
 from Math.math import Math
 
 
@@ -7,11 +7,27 @@ from Math.math import Math
 """
 Deprecated
 """
-def generate_prime(start=100, end=300):
+
+def generate_prime(num_bits=512):
+    def generateRandom():
+        # min_n_digit_number = 10**(num_digits - 1)
+        # max_n_digit_number = 10**num_digits - 1
+        while True:
+            number = secrets.randbits(num_bits)
+            number |= (1 << (num_bits - 1)) | 1
+# - (1 << (num_bits - 1)): bit cao nhat (MSB) = 1 → dam bao co dung so num bit
+# - | 1: bit thap nhat (LSB) = 1 → except 5
+# - |= : con lai giu nguyen, OR lai de number la so le co bit dau la 1
+            if number % 10 not in {1, 3, 7, 9}:     #Prime number la so le, khong co duoi 5
+                continue
+            return number
+    count = 0
     while True:
-        x = random.randint(start, end)
-        if Math.isPrime(x):
-            return x
+        count += 1
+        print(f"Iteration: {count}")
+        number = generateRandom()
+        if Math.millerRabin(number):
+            return number
 
 def mod_inverse(a, m):
     g, x, _ = Math.extendedGCD(a, m)
@@ -28,6 +44,7 @@ class RSA:
         # 1. sinh p, q
         p = generate_prime()
         q = generate_prime()
+        print(f"Print number choose is: {p}, {q}")
         while q == p:
             q = generate_prime()
 
