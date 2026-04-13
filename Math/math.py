@@ -90,10 +90,11 @@ class Math:
                 elif x!= 1: 
                     return False
         return True
-    
-
+ 
     @staticmethod
     def millerRabin(n, k = 40):      # Set k = 40. XS P(sai) <= (1/4)^k
+        if n < 2:
+            return False
         for _ in range (k):
             if not Math.millerRabinIteration(n):
                 return False
