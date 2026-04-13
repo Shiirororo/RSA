@@ -69,8 +69,11 @@ class RSA:
 
             n = p * q
             phi = (p - 1) * (q - 1)
+            while True:
+                e = secrets.randbelow(phi)
+                if Math.gcd(e, phi) == 1:
+                    break
 
-            e = 3
             while Math.gcd(e, phi) != 1:
                 e += 2
 
