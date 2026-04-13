@@ -10,8 +10,6 @@ Deprecated
 
 def generate_prime(num_bits=512):
     def generateRandom():
-        # min_n_digit_number = 10**(num_digits - 1)
-        # max_n_digit_number = 10**num_digits - 1
         while True:
             number = secrets.randbits(num_bits)
             number |= (1 << (num_bits - 1)) | 1
@@ -41,25 +39,42 @@ class RSA:
         self.public_key, self.private_key = self.generate_keys()
 
     def generate_keys(self):
-        # 1. sinh p, q
-        p = generate_prime()
-        q = generate_prime()
-        print(f"Print number choose is: {p}, {q}")
-        while q == p:
+        manual = input("Ban co muon tu nhap p, q, e khong? (y/n): ").strip().lower() == 'y'
+
+        if manual:
+            while True:
+                p = int(input("Nhap so nguyen to p: "))
+                q = int(input("Nhap so nguyen to q: "))
+                if not Math.millerRabin(p) or not Math.millerRabin(q):
+                    print("p va q phai la so nguyen to. Thu lai.")
+                elif p == q:
+                    print("p va q phai khac nhau. Thu lai.")
+                else:
+                    break
+
+            n = p * q
+            phi = (p - 1) * (q - 1)
+
+            while True:
+                e = int(input(f"Nhap e (1 < e < {phi}, gcd(e, phi) = 1): "))
+                if 1 < e < phi and Math.gcd(e, phi) == 1:
+                    break
+                print("Gia tri e khong hop le. Thu lai.")
+        else:
+            p = generate_prime()
             q = generate_prime()
+            while q == p:
+                q = generate_prime()
+            print(f"Da sinh p = {p}, q = {q}")
 
-        # 2. tính n, phi
-        n = p * q
-        phi = (p - 1) * (q - 1)
+            n = p * q
+            phi = (p - 1) * (q - 1)
 
-        # 3. chọn e
-        e = 3
-        while Math.gcd(e, phi) != 1:
-            e += 2
+            e = 3
+            while Math.gcd(e, phi) != 1:
+                e += 2
 
-        # 4. tính d
         d = mod_inverse(e, phi)
-
         return (e, n), (d, n)
 
     def encrypt(self, message):
