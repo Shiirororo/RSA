@@ -10,7 +10,7 @@
 ---
 ## Contributors
 - Pham Trieu Minh (20234026)
-- Nguyen Trong Nhan (202414940)
+- Nguyen Trong Nhan (202414940) (Shiirororo)
 - Tran Hoai Nam (20224412)
 - Hoang Tuan Ngoc 
 - Tran Phi Anh Nhat
